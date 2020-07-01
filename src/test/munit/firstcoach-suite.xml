@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="firstcoach-suite.xml" />
+	<munit:test name="firstcoach-main-test" doc:id="78cea07d-6385-40d2-a7d0-c824700c84b9" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="a2bddfe2-5e45-4bf6-9fd1-9f7c9a01efe7" >
+				<munit:payload value="#[readUrl('classpath://firstcoachmaintest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://firstcoachmaintest\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to firstcoach-main" doc:id="33b64c29-a274-4aa1-ac9b-6498f8101ac6" name="firstcoach-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="8a42f53c-3998-45a1-8e04-8a0d84e44b84" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import firstcoachmaintest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	
+	
+	<munit:test name="get:\fetchRoutes:firstcoach-config-test" doc:id="9094d418-f644-4d37-af8c-2d2357b82e0c" >
+		
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="f8f3fba7-5e98-42e6-8933-5472cbac53ad" >
+				<munit:payload value="#[readUrl('classpath://getfetchRoutesfirstcoachconfigtest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getfetchRoutesfirstcoachconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getfetchRoutesfirstcoachconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		
+		
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\fetchRoutes:firstcoach-config" doc:id="9d8e9a22-43a1-4785-bc76-99a89bc05376" name="get:\fetchRoutes:firstcoach-config"/>
+		</munit:execution>
+		
+		
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="a739d0c0-1d3c-494f-8cdc-6ef807f86145" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getfetchRoutesfirstcoachconfigtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	
+	
+	
+	<munit:test name="post:\fetchSchedules:application\json:firstcoach-config-test" doc:id="5de4e868-8f06-4d13-9f12-40668aec6b8c" >
+		
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="5f72f405-4524-475a-98c9-18b1880797b8" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://postfetchSchedulesapplicationjsonfirstcoachconfigtest\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://postfetchSchedulesapplicationjsonfirstcoachconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://postfetchSchedulesapplicationjsonfirstcoachconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		
+		
+		<munit:execution>
+			<flow-ref doc:name="Flow-ref to post:\fetchSchedules:application\json:firstcoach-config" doc:id="9e954695-795d-4186-9a48-1d9fc6692f02" name="post:\fetchSchedules:application\json:firstcoach-config"/>
+		</munit:execution>
+		
+		
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="1a6c03cf-1a41-459e-a29b-43545ccebae0" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import postfetchSchedulesapplicationjsonfirstcoachconfigtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
